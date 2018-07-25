@@ -1,0 +1,13 @@
+#Below code must be run to "activate" the CuffDiff output. Here you are making an object (called "cuff") that will be refered to by the other code
+#Make sure the R working directory is in a folder with all gene summary files 1-6 and the "cuffData" data base file. All these files should be in the "cuffdiff_out" folder that the Tuxedo Protocol Ouputs.
+
+#Install the cummeRbund package (only need to do once on your computer)
+source("https://bioconductor.org/biocLite.R")
+biocLite("cummeRbund")
+#Load the cummeRbund package (Run each time you start RStudio)
+library(cummeRbund)
+#Set the value "cuff" to read the "cuffData" data base file. Cuff will give you a simple read out of what is in the database such as the number of samples, number of genes and isoforms.
+#If you get zero samples or zero genes, this means the data was not found (likely because your working directory is incorrect)
+cuff <- readCufflinks()
+cuff
+#Run lines 8 through 12 next time
