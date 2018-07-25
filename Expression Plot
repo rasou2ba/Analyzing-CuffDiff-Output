@@ -1,0 +1,36 @@
+#Enter the gene Alias for each gene. You can add as many genes as desired
+GeneNames <- c("LRIT1", "RBP3", "PRPH2", "RHO", "FSCN2")
+#Enter as many samples as desired (choices are E8ret, E16ret, E18ret, E18cor)
+Genes <- getGenes(cuff,GeneNames,sampleIdList = c("E8ret","E18cor"))
+#Call the genes to make sure the genes were found
+Genes
+#Add the name of the value for genes
+expressionPlot(Genes)
+#turn on logMode for y-axis
+expressionPlot(Genes,logMode = TRUE) #this adds a +1 to y-axis to avoid zeros 
+#assign the plot to a name in order to make modifications to the graph 
+ep <- expressionPlot(Genes, logMode = TRUE)
+#Change x-axis label
+ep <- ep + labs(x="Samples")
+#Change y-axis label
+ep <- ep + labs(y="Log of FPKM+1") #THIS SHOULD BE CHANGED IF LOGMODE=F
+#Changes X & Y axis text
+ep <- ep + theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold"))
+#Changes X label axis size
+ep <- ep + theme(axis.title.x=element_text(size=10, face = "bold"))
+#Changes Y axis label size
+ep <- ep + theme(axis.title.y=element_text(size=10, face = "bold"))
+#Change size of axis text and title
+ep <- ep + theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold"))
+#Changes text in legend title
+ep <- ep + theme(legend.title=(element_text(size=10, face = "bold")))
+#Changes text in legend
+ep <- ep + theme(legend.text=(element_text(size=10, face = "bold")))
+#Change the background
+ep <- ep + theme_bw()
+#Change the x-axis labels:
+ep <- ep + scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea"))
+#change color of lines:
+ep <- ep + scale_colour_manual(values=c("ENSGALG00000002303" = "red", "ENSGALG00000005978" = "orange","ENSGALG00000009909" = "darkgreen", "ENSGALG00000020745" = "blue", "ENSGALG00000023354" = "purple"))
+#Generates graph
+ep
