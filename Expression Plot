@@ -32,7 +32,9 @@ ep <- ep + theme_bw()
 ep <- ep + scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) #refer to line 4 when ordering these
 #change color of lines:
 ep <- ep + scale_colour_manual(values=c("ENSGALG00000002303" = "red", "ENSGALG00000005978" = "orange","ENSGALG00000009909" = "darkgreen", "ENSGALG00000020745" = "blue", "ENSGALG00000023354" = "purple"))
-#removes the legend for the shapes
+#remove legend for a specific aesthetic (this case dots)
 ep <- ep + guides(shape = FALSE)
+#change the title for the legend
+ep <- ep + guides(colour=guide_legend(title="Genes"))
 #Generates graph
 ep
