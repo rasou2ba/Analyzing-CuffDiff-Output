@@ -30,8 +30,9 @@ ep <- ep + theme(legend.text=(element_text(size=10, face = "bold")))
 ep <- ep + theme_bw()
 #Change the x-axis labels:
 ep <- ep + scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) #refer to line 4 when ordering these
-#change color of lines:
-ep <- ep + scale_colour_manual(values=c("ENSGALG00000002303" = "red", "ENSGALG00000005978" = "orange","ENSGALG00000009909" = "darkgreen", "ENSGALG00000020745" = "blue", "ENSGALG00000023354" = "purple"))
+#change color of lines and instead of ensgal#, write the gene name (order of names must match order of ensgal#s):
+ep <- ep + scale_colour_manual(values=c("ENSGALG00000002303" = "red", "ENSGALG00000005978" = "orange","ENSGALG00000009909" = "darkgreen", "ENSGALG00000020745" = "blue", "ENSGALG00000023354" = "purple"),
+labels=c("LRIT1", "RBP3", "PRPH2", "RHO", "FSCN2"))
 #remove legend for a specific aesthetic (this case dots)
 ep <- ep + guides(shape = FALSE)
 #change the title for the legend
