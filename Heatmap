@@ -1,0 +1,35 @@
+DistHeat<-csDistHeat(genes(cuff), replicates = T)
+DistHeat
+#Heat Map
+
+#This line generates a Heat Map with a Dark Blue to White color scale
+myRepDistHeat<-csDistHeat(genes(cuff),replicates=T,heatscale= c(low='Black',mid='Grey',high='White'))
+
+#This line adjusts the size of the axis labesls
+myRepDistHeat<- myRepDistHeat + theme(axis.text.x=element_text(size=12, face = "bold"),axis.text.y=element_text(size=12, face = "bold"))
+
+#This line lays a new layer of tiles onto the heat map
+myRepDistHeat<- myRepDistHeat + geom_tile(aes(fill = value))
+
+#change the labels of the x and y tick marks
+xlabels <- c("E18 Cornea 1","E18 Cornea 2","E8 Retina 1","E8 Retina 2", "E18 Retina 1", "E18 Retina 2", "E16 Retina 1", "E16 Retina 2")
+ylabels <- c("E18 Cornea 1","E18 Cornea 2","E8 Retina 1","E8 Retina 2", "E18 Retina 1", "E18 Retina 2", "E16 Retina 1", "E16 Retina 2")
+
+#Following two lines incorparte the above two lines into the plot 
+myRepDistHeat <- myRepDistHeat + scale_x_discrete(labels=xlabels)
+myRepDistHeat <- myRepDistHeat + scale_y_discrete(labels=ylabels)
+
+#This line adjusts the text size of the legend
+myRepDistHeat <- myRepDistHeat + theme(legend.text=(element_text(size=12, face = "bold")))
+
+#This line adjusts the legend title text
+myRepDistHeat <- myRepDistHeat + theme(legend.title=(element_text(size=14, face = "bold")))
+
+#Adds the JS Distance values to the new layer of tiles
+#myRepDistHeat <- myRepDistHeat + geom_text(aes(label = value), size=4, fontface = "bold")
+
+#Remove X and Y axis labels
+myRepDistHeat <- myRepDistHeat + labs(X="",y="")
+
+#This line generates the heat map
+myRepDistHeat
