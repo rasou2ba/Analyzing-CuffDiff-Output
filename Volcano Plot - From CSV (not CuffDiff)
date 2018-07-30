@@ -1,0 +1,60 @@
+#Making a Volcano Plot using ggplot2
+#This code does not require the Cummerbund package. Therefore you do not need teh "set up" R script
+#This code works best if expression data is in an csv file with the following headers in the csv file:
+# gene	baseMean	log2FoldChange	lfcSE	stat	pvalue	padj
+
+
+library("ggplot2") #Best plots
+library("ggrepel") #Avoid overlapping labels
+
+data <- read.csv("E8vE18retina.csv", header = TRUE)
+
+#making the plot and adding the points
+plot <- ggplot(data, aes(x=log2FoldChange, y = -log10(pvalue))) +
+  geom_point(aes(x=log2FoldChange, y = -log10(pvalue), color = ifelse(-log10(pvalue) < 1.3, "Not  Signif", NA))) +
+  geom_point(aes(x=log2FoldChange, y = -log10(pvalue), color = ifelse(-log10(pvalue) > 1.3, "Stat Signif", NA))) +
+  geom_point(aes(x=log2FoldChange, y = -log10(pvalue), color = ifelse(-log10(pvalue) < 1.3 & (log2FoldChange) < -1 | (-log10(pvalue) < 1.3 & (log2FoldChange) > 1), "Bio Signif", NA))) +
+  geom_point(aes(x=log2FoldChange, y = -log10(pvalue), color = ifelse(-log10(pvalue) > 1.3 & (log2FoldChange) < -1 | (-log10(pvalue) > 1.3 & (log2FoldChange) > 1), "Bio&Stat Signif" , NA))) +
+  scale_color_manual(values = c("darkorange","chartreuse2", "black", "red"))
+
+
+#Labeling 12 genes in the plot:
+
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("DNMT3B"), "DNMT3B", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("LRIT1"), "LRIT1", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("PRPH2"), "PRPH2", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("RHO"), "RHO", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("GNAT2"), "GNAT2", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("PDE6C"), "PDE6C", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("PDE6B"), "PDE6B", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("RBP3"), "RBP3", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("OTX2"), "OTX2", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("GNAT1"), "GNAT1", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("ARR3"), "ARR3", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+plot <- plot + geom_text_repel(aes(x=log2FoldChange, y = -log10(pvalue), label = ifelse(gene == c("FSCN2"), "FSCN2", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+
+
+#make background white:
+plot <- plot + theme_light() #use theme_classic() if no gridlines are desired
+
+#modify the plot title, its text size and location: 
+plot <- plot + ggtitle("E8 Retina | E18 Retina")
+plot <- plot + theme(plot.title = element_text(hjust = 0.5, size=19))
+
+#legend title: code is currently to remove the title. 
+plot <- plot + theme(legend.title=element_blank()) 
+
+#modify legend text size:
+plot <- plot + theme(legend.text=element_text(size=17))
+
+#modify the axis titles and text size:
+plot <- plot + theme(axis.title = element_text(size = 18.5)) + theme(axis.text = element_text(size = 17))
+
+plot
+
+###-----------------------------------------------------------------
+
+#modify the y-axis and x-axis limits: Don't recommend doing this b/c genes won't all show on this scale.
+plot <- plot + scale_y_continuous(limits = c(0, 10)) + scale_x_continuous(limits = c(-10, 10))
+
+plot
