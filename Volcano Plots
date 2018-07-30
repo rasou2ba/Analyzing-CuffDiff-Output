@@ -32,6 +32,8 @@ Vol <- Vol + theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=
 Vol <- Vol + theme(legend.text=(element_text(size=12, face = "bold")))
 #This line adjusts the legend title text
 Vol <- Vol + theme(legend.title=(element_text(size=14, face = "bold")))
+#Change title of legend
+Vol <- Vol + labs(colour = "Significance")
 Vol
 
 #----------------------------------------------------------------------------------------------
@@ -68,5 +70,7 @@ vol2 <- vol2 + theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.
 vol2 <- vol2 + theme(legend.text=(element_text(size=12, face = "bold")))
 #This line adjusts the legend title text
 vol2 <- vol2 + theme(legend.title=(element_text(size=14, face = "bold")))
+#Change title of legend
+vol2 <- vol2 + labs(colour = "Significance")
 vol2
 
