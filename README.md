@@ -20,6 +20,7 @@ Code used is available in each of the scripts below.
 
 1. [Set Up](address)
 1. [Expression Plot](address)
+1. [Expression Plot as Matrix](address)
 1. [Heatmap](address)
 1. [MDS Plot](address)
 1. [Volcano Plot - no gene labels](address)
