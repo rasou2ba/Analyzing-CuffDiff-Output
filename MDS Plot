@@ -1,0 +1,51 @@
+#Makes an MDS Plot of samples
+#Run set up script to have a cuff object in environment
+
+MDSplot(genes(cuff),replicates=T)
+#Replace the "Sample_1", Sample_2"... with new names for samples in line 34. Example: "Sample_1" to "Macula 1"
+#Change colors in Line 34.
+
+### WRITES NEW FUNCTION FOR MDS TO REMOVE TEXT ###
+.MDSplot<-function(object,replicates=FALSE,logMode=TRUE,pseudocount=1.0){
+  if(replicates){
+    dat<-repFpkmMatrix(object)
+    #repData<-sapply(replicates(object),function(x){strsplit(x,"_")[[1]][1]}) This is to color by condition and not replicate...
+  }else{
+    dat<-fpkmMatrix(object)
+  }
+  
+  if(logMode){
+    dat<-log10(dat+pseudocount)
+  }
+  
+  d<-JSdist(makeprobs(dat))
+  fit <- cmdscale(d,eig=TRUE, k=2)
+  res<-data.frame(names=rownames(fit$points),M1=fit$points[,1],M2=fit$points[,2])
+  p <- ggplot(res)
+  p <- p + geom_point(aes(x=M1,y=M2,color=names),size = 5)+ theme_bw()
+
+}
+
+setMethod("MDSplot",signature(object="CuffData"),.MDSplot)
+### END OF FUNCTION ###
+
+### MDS PLOT CODE ###
+MDS <- MDSplot(genes(cuff),replicates=T)
+#Changes Sample Names and Colors of points
+MDS <- MDS + scale_color_manual(labels = c("E16 Retina 1", "E16 Retina 2","E18 Cornea 1","E18 Cornea 2", "E18 Retina 1","E18 Retina 2","E8 Retina 1", "E8 Retina 2"), values = c("red","pink", "light blue", "blue", "magenta","purple", "peru", "brown" ))
+#Changes Plot Title
+MDS <- MDS + ggtitle("MDS Plot")
+#Adjusts size of Plot title
+MDS <- MDS + theme(plot.title = element_text(hjust = 0.5, size=16,face = "bold"))
+#This line adjusts the axis title text
+MDS <- MDS + theme(axis.title.x=element_text(size=16, face = "bold"),axis.title.y=element_text(size=16, face = "bold"))
+#This line adjusts the size of the axis labels
+MDS <- MDS + theme(axis.text.x=element_text(size=16, face = "bold"),axis.text.y=element_text(size=16, face = "bold"))
+#Changes Legend Title
+MDS <- MDS + labs(colour = "Sample")
+#This line adjusts the text size of the legend
+MDS <- MDS + theme(legend.text=(element_text(size=16, face = "bold")))
+#This line adjusts the legend title text
+MDS <- MDS + theme(legend.title=(element_text(size=16, face = "bold")))
+#Generate Graph
+MDS
