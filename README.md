@@ -18,10 +18,11 @@ This repository contains code used for data analysis presented in:
 
 Code used is available in each of the scripts below.
 
-1. [Set Up](address)
-1. [Expression Plot](address)
-1. [Expression Plot in Matrix](address)
-1. [Heatmap](address)
-1. [MDS Plot](address)
-1. [Volcano Plot - no gene labels](address)
-1. [Volcano Plot - label genes](address)
+1. [Set Up](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Set%20Up%20-%20Always%20Run%201st)
+1. [Expression Plot](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Expression%20Plot)
+1. [Expression Plot in Matrix](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Expression%20Plot%20in%20Matrix)
+1. [Heatmap](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Heatmap)
+1. [MDS Plot](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/MDS%20Plot)
+1. [Volcano Plot - 3 kinds](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Volcano%20Plots)
+1. [Volcano Plot - label genes](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Volcano%20Plot%20-%20Label%20Many%20Genes)
+1. [Volcano Plot - from CSV](https://github.com/rasou2ba/Analyzing-CuffDiff-Output/blob/master/Volcano%20Plot%20-%20From%20CSV%20(not%20CuffDiff))
