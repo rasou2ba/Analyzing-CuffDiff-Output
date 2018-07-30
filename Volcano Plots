@@ -1,0 +1,72 @@
+#This page has code for multiple Volcan Plots. Please read the comments carefully
+#Make sure "Set up" script is run first. 
+
+#----------------------------------------------------------------------------------------------
+
+#Simple Black and Red Volcano Plot showing only statistical significance:
+v <- csVolcano(genes(cuff),"E8ret", "E18ret",alpha=0.05, showSignificant=TRUE) +
+  ggtitle("E8ret vs E18ret") + theme(plot.title = element_text(hjust = 0.5))
+v
+
+#----------------------------------------------------------------------------------------------
+#Black, red, green, and orange volcano plot
+#Assign code to a value
+Vol <- csVolcano(genes(cuff),"E8ret","E18ret",alpha=0.05, showSignificant=TRUE)
+#Can now start adding onto the code using Vol <- Vol +
+#This line will overlay new, more visible data points. 
+Vol <- Vol + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = significant), size=1.5) 
+#Label Bio and Stat significant genes
+Vol <- Vol + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = ifelse(log2_fold_change < -1, "Bio&Stat" , ifelse(log2_fold_change> 1, "Bio&Stat" , NA))))
+#Add Biologically Significant Points
+Vol <- Vol + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = ifelse(-log10(p_value) < 1.9 & (log2_fold_change) < -1 | (-log10(p_value) < 1.9 & (log2_fold_change) > 1), "Bio", NA)))
+#darkorange= Bio significant, chartreuse2 (green) = Bio and Stat significant, black = not significant, red = stat significant
+Vol <- Vol + scale_color_manual(values = c("darkorange", "chartreuse2","black", "red"))
+#Adjust axis, title, and legend
+Vol <- Vol + ggtitle("E8 Retina | E18 Retina")
+Vol <- Vol + theme(plot.title = element_text(hjust = 0.5))
+#This line adjusts the axis title text
+Vol <- Vol + theme(axis.title.x=element_text(size=16, face = "bold"),axis.title.y=element_text(size=16, face = "bold"))
+#This line adjusts the size of the axis labesls
+Vol <- Vol + theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold"))
+#This line adjusts the text size of the legend
+Vol <- Vol + theme(legend.text=(element_text(size=12, face = "bold")))
+#This line adjusts the legend title text
+Vol <- Vol + theme(legend.title=(element_text(size=14, face = "bold")))
+Vol
+
+#----------------------------------------------------------------------------------------------
+
+#Black, red, green, and orange volcano plot with gene labels
+#Packages only need to be RUN ONCE after opening R. These are for making arrows to genes 
+#Change enssgal#s and gene nanes towards the middle of the code. 
+install.packages("ggrepel")
+library(ggrepel)
+#Assign code to a value
+vol2 <- csVolcano(genes(cuff),"E8ret","E18ret",alpha=0.05, showSignificant=TRUE)
+#Can now start adding onto the code using Vol <- Vol +
+#This line will overlay new, more visible data points. 
+vol2 <- vol2 + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = significant), size=1.5) 
+#Label Bio and Stat significant genes
+vol2 <- vol2 + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = ifelse(log2_fold_change < -1, "Bio&Stat" , ifelse(log2_fold_change> 1, "Bio&Stat" , NA))))
+#Add Biologically Significant Points
+vol2 <- vol2 + geom_point(aes(x=log2_fold_change, y = -log10(p_value), color = ifelse(-log10(p_value) < 1.9 & (log2_fold_change) < -1 | (-log10(p_value) < 1.9 & (log2_fold_change) > 1), "Bio", NA)))
+#darkorange= Bio significant, chartreuse2 (green) = Bio and Stat significant, black = not significant, red = stat significant
+vol2 <- vol2 + scale_color_manual(values = c("darkorange", "chartreuse2","black", "red"))
+#Add on the genes you wan to lable. This can be done for as many genes as desired. 
+vol2 <- vol2 + geom_text_repel(aes(x=log2_fold_change, y = -log10(p_value), label = ifelse(gene_id == c("ENSGALG00000005073"), "PDC", NA)),nudge_x = 5, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+vol2 <- vol2 + geom_text_repel(aes(x=log2_fold_change, y = -log10(p_value), label = ifelse(gene_id == c("ENSGALG00000014904"), "CLUL1", NA)),nudge_x = 0, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+vol2 <- vol2 + geom_text_repel(aes(x=log2_fold_change, y = -log10(p_value), label = ifelse(gene_id == c("ENSGALG00000011104"), "GCG", NA)),nudge_x = 0, nudge_y = 0,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+vol2 <- vol2 + geom_text_repel(aes(x=log2_fold_change, y = -log10(p_value), label = ifelse(gene_id == c("ENSGALG00000027168"), "CCDC3", NA)),nudge_x = 0, nudge_y = -0.5,size=4,segment.size = 1, arrow = arrow(length = unit(0.02, "npc")), box.padding = unit(1, "lines"))
+#Adjust axis, title, and legend
+vol2 <- vol2 + ggtitle("E8 Retina | E18 Retina")
+vol2 <- vol2 + theme(plot.title = element_text(hjust = 0.5))
+#This line adjusts the axis title text
+vol2 <- vol2 + theme(axis.title.x=element_text(size=16, face = "bold"),axis.title.y=element_text(size=16, face = "bold"))
+#This line adjusts the size of the axis labesls
+vol2 <- vol2 + theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold"))
+#This line adjusts the text size of the legend
+vol2 <- vol2 + theme(legend.text=(element_text(size=12, face = "bold")))
+#This line adjusts the legend title text
+vol2 <- vol2 + theme(legend.title=(element_text(size=14, face = "bold")))
+vol2
+
