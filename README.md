@@ -1,4 +1,4 @@
-# Analyzing-CuffDiff-Output
+# Analyzing CuffDiff Output
 These are individual codes to make different plots using the CuffDiff output files
 
 
@@ -20,7 +20,7 @@ Code used is available in each of the scripts below.
 
 1. [Set Up](address)
 1. [Expression Plot](address)
-1. [Expression Plot as Matrix](address)
+1. [Expression Plot in Matrix](address)
 1. [Heatmap](address)
 1. [MDS Plot](address)
 1. [Volcano Plot - no gene labels](address)
