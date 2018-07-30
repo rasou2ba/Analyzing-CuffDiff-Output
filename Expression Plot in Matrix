@@ -1,0 +1,193 @@
+#To get one gene per plot with multiple plots in a matrix....Updated 8/1/18
+#install the required package - from github gets the latest version
+if(!require(devtools)) install.packages("devtools")
+devtools::install_github("kassambara/ggpubr")
+
+#IF THE ABOVE INSTALLION FAILS, try this:
+install.packages("ggpubr")
+
+#load the library
+library(ggpubr)
+
+#DIRECTIONS: 
+#---Make sure that the "Set up.R" script file has been run so that you have a "cuff" object in your environemnt
+#---Code from Line 18 - 41 is repeated for each gene of interest. The following code is for 7 genes
+#---Run code as needed (i.e if you only plot 5 genes, don't run the last two paragraphs of code.) 
+#---In each paragrpah of code, the gene name and ensemble number in the 1st, 7th, and 16th lines of code must be changed
+#---The color of each line plot can be changed in line 16 of each paragrpah
+#---At the end of the script, there is code for arranging the plot as a matrix and annotating the matrix. 
+#---When arranging the plot in a matrix, delet "ep#" not used (see line# 187)
+
+#Enter the gene Alias for gene of interest.
+GeneNames1 <- c("ARR3")
+#Enter as many samples as desired (choices are E8ret, E16ret, E18ret, E18cor)
+Genes1 <- getGenes(cuff,GeneNames1,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+#Call the genes to make sure the genes were found
+Genes1
+#assign the plot to a name in order to make modifications to the graph 
+ep1 <- expressionPlot(Genes1, logMode = T) + #this adds a +1 to y-axis to avoid infinity 
+  xlab(NULL) + 
+  ylab(NULL) + 
+  labs(title="ARR3") +
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) + 
+  theme(axis.title.x=element_text(size=10, face = "bold")) + 
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) + 
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000004251" = "black"),labels=c("ARR3")) +
+  guides(shape = FALSE) +
+  guides(colour=guide_legend(title=NULL))+
+  theme(legend.position="none") #remove legend
+ep1
+
+#Enter the gene Alias for gene.
+GeneNames2 <- c("RBP3")
+Genes2 <- getGenes(cuff,GeneNames2,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes2
+
+ep2 <- expressionPlot(Genes2, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="RBP3") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000005978" = "black"),labels=c("RBP3")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep2
+
+#Enter the gene Alias for gene.
+GeneNames3<- c("PDE6C")
+Genes3 <- getGenes(cuff,GeneNames3,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes3
+
+ep3 <- expressionPlot(Genes3, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="PDE6C") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000006626" = "black"),labels=c("PDE6C")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep3
+
+#Enter the gene Alias for gene.
+GeneNames4 <- c("PRPH2")
+Genes4 <- getGenes(cuff,GeneNames4,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes4
+
+ep4 <- expressionPlot(Genes4, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="PRPH2") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000009909" = "black"),labels=c("PRPH2")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep4
+
+#Enter the gene Alias for gene.
+GeneNames5 <- c("PDE6B")
+Genes5 <- getGenes(cuff,GeneNames5,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes5
+
+ep5 <- expressionPlot(Genes5, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="PDE6B") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000015373" = "black"),labels=c("PDE6B")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep5
+
+#Enter the gene Alias for gene.
+GeneNames6 <- c("RHO")
+Genes6 <- getGenes(cuff,GeneNames6,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes6
+
+ep6 <- expressionPlot(Genes6, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="RHO") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000020745" = "black"),labels=c("RHO")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep6
+
+#Enter the gene Alias for gene.
+GeneNames7 <- c("GNAT1")
+Genes7 <- getGenes(cuff,GeneNames7,sampleIdList = c("E8ret", "E16ret", "E18ret", "E18cor"))
+Genes7
+
+ep7 <- expressionPlot(Genes7, logMode = TRUE) +
+  xlab(NULL) +
+  ylab(NULL) +
+  labs(title="GNAT1") + 
+  theme(axis.text.x=element_text(size=10, face = "bold"),axis.text.y=element_text(size=10, face = "bold")) +
+  theme(axis.title.x=element_text(size=10, face = "bold")) +
+  theme(axis.title.y=element_text(size=10, face = "bold")) +
+  theme(axis.text=element_text(size=14), axis.title=element_text(size=15,face="bold")) +
+  theme(legend.title=(element_text(size=10, face = "bold"))) +
+  theme(legend.text=(element_text(size=10, face = "bold"))) +
+  theme_bw() + theme(plot.title = element_text(hjust = 0.5)) +
+  scale_x_discrete(labels = c("E8 Retina", "E16 Retina", "E18 Retina", "E18 Cornea")) +
+  scale_colour_manual(values=c("ENSGALG00000028697" = "black"),labels=c("GNAT1")) + 
+  guides(shape = FALSE) + 
+  guides(colour=guide_legend(title=NULL)) +
+  theme(legend.position="none") #remove legend
+ep7
+
+#add more of the above code as necessary. 
+
+#Arrange ggplots in one single page. REMOVE "ep#" THAT ARE NOT USED.
+plot <- ggarrange(ep1, ep2, ep3, ep4, ep5, ep6, ep7, ncol= 2, nrow =4 , common.legend = F) #makes mulitple legends. common legend = T only keeps 1 legend
+
+#annotate the figure
+annotate_figure(plot,
+                top = text_grob("Gene Expression During Retinal Development", color = "black", face = "bold", size = 14),
+                bottom = text_grob("Samples", color = "black",face = "bold", size = 12),
+                left = text_grob("Log of FPKM +1", color = "black", face = "bold", size = 12, rot = 90))
