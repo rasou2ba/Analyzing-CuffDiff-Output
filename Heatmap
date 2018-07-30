@@ -1,3 +1,6 @@
+#Makes an heatmap of the samples
+#Run set up script first to have "cuff" object in environment
+
 DistHeat<-csDistHeat(genes(cuff), replicates = T)
 DistHeat
 #Heat Map
