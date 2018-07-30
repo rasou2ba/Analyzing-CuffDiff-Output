@@ -213,5 +213,7 @@ v <- v+theme(axis.text.x=element_text(size=16, face = "bold"),axis.text.y=elemen
 v <- v+theme(legend.text=(element_text(size=16, face = "bold")))
 #This line adjusts the legend title text
 v <- v+theme(legend.title=(element_text(size=16, face = "bold")))
+#Change title of legend
+v <- v+labs(colour = "Significance")
 #This line generates the volcano plot
 v
